@@ -15,6 +15,3 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest -d app
-
-    - name: Run tests
-      run: bin/phpunit tests
