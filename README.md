@@ -2,6 +2,10 @@
 
 Order service is a microservice built using DDD, CQRS and Event Sourcing architecture
 
+![PHP Composer](https://github.com/luciano-jr/order-service/workflows/PHP%20Composer/badge.svg?branch=master)
+![Docker Image CI](https://github.com/luciano-jr/order-service/workflows/Docker%20Image%20CI/badge.svg?branch=master)
+
+
 ## Installation
 
 Use [docker](https://docs.docker.com/install) to install the container services.
