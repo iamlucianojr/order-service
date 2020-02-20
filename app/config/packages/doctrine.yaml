@@ -1,0 +1,11 @@
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'postgresql'
+        server_version: '12'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+        url: '%env(resolve:DATABASE_URL)%'

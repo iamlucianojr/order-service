@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+    rabbitmq:
+        image: lucianojr/order-service-rabbitmq
+        build:
+            context: .
+            dockerfile: docker/rabbitmq/Dockerfile
+        environment:
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_MANAGEMENT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_MANAGEMENT_PASS}
+            RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_MANAGEMENT_VHOST}
+        ports:
+            - ${RABBITMQ_MANAGEMENT_HOST_PORT}:${RABBITMQ_MANAGEMENT_REMOTE_PORT}
+            - ${RABBITMQ_HOST_PORT}:${RABBITMQ_MANAGEMENT_REMOTE_PORT}
+        volumes:
+            - ./var/data/rabbitmq:/var/lib/rabbitmq
+
+    nginx:
+        image: lucianojr/order-service-nginx
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        depends_on:
+            - php
+        volumes:
+            - ${APP_CODE_PATH_HOST}/public:${APP_CODE_PATH_CONTAINER}/public
+        ports:
+            - ${NGINX_HOST_PORT}:${NGINX_REMOTE_PORT}
+
+    php:
+        image: lucianojr/order-service-php
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile.dev
+        ports:
+            - ${PHP_FPM_HOST_PORT}:${PHP_FPM_REMOTE_PORT}
+        volumes:
+            - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_PATH_CONTAINER_SUFFIX}
+
+    postgres:
+        image: lucianojr/order-service-postgres
+        build:
+            context: .
+            dockerfile: docker/postgres/Dockerfile
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASS}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+          - ${POSTGRES_PORT}:5432
+        volumes:
+            - ./var/data/postgres:/var/lib/postgresql/data

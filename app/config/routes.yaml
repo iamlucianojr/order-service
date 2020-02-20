@@ -1,0 +1,19 @@
+order::request:
+    path: /order-request
+    methods: [POST]
+    controller: App\UI\HTTP\REST\Controller\OrderController::create
+
+order::cancel:
+    path: /order-cancel
+    methods: [DELETE]
+    controller: App\UI\HTTP\REST\Controller\OrderController::cancel
+
+order::deliver:
+    path: /order-deliver
+    methods: [PUT]
+    controller: App\UI\HTTP\REST\Controller\OrderController::deliver
+
+order::redo:
+    path: /order-redo
+    methods: [POST]
+    controller: App\UI\HTTP\REST\Controller\OrderController::redo

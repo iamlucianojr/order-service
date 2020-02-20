@@ -1,0 +1,18 @@
+prooph_event_store:
+    stores:
+        default:
+            event_store: 'app.event_store.default'
+
+    projection_managers:
+        order_projection_manager:
+            event_store: 'app.event_store.default'
+            connection: 'app.event_store.pdo_connection.postgres'
+            projections:
+                order_projection:
+                    read_model: App\Order\Infrastructure\Persistence\ORM\Projections\OrderReadModel
+                    projection: App\Order\Infrastructure\Persistence\ORM\Projections\OrderProjection
+services:
+    _defaults:
+        public: false
+
+    Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator: null

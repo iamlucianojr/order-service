@@ -1,0 +1,83 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "name": "appointly-online/appointment-service",
+    "description": "Appointment service",
+    "require": {
+        "php": "^7.4",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "beberlei/assert": "^3.2",
+        "friendsofsymfony/rest-bundle": "^2.6",
+        "prooph/event-sourcing": "^5.6",
+        "prooph/event-store-symfony-bundle": "^0.6",
+        "prooph/pdo-event-store": "^1.11",
+        "ramsey/uuid": "^3.8",
+        "ramsey/uuid-doctrine": "^1.5",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
+        "symfony/flex": "^1.4",
+        "symfony/form": "4.4.*",
+        "symfony/framework-bundle": "4.4.*",
+        "symfony/messenger": "4.4.*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/serializer-pack": "^1.0",
+        "symfony/thanks": "^1.2",
+        "symfony/validator": "4.4.*",
+        "symfony/yaml": "4.4.*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.3",
+        "symfony/maker-bundle": "^1.14",
+        "symfony/phpunit-bridge": "^5.0",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
+        "theofidry/psysh-bundle": "^4.0"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts",
+            "@php -r \"file_exists('.env') || copy('.env.dist', '.env');\""
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.4.*"
+        }
+    }
+}

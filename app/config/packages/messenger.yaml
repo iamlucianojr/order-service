@@ -1,0 +1,28 @@
+framework:
+    messenger:
+        default_bus: command.bus
+        buses:
+            command.bus: ~
+
+            event.bus:
+                default_middleware: allow_no_handlers
+
+            query.bus: ~
+
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context: { }
+
+        transports:
+            write_commands:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/write_commands'
+            domain_events:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/domain_events'
+
+        routing:
+            'App\Order\Application\Command\OrderRequestCommand': write_commands
+            'App\Order\Domain\Event\OrderWasRequested': domain_events
+            'App\Order\Domain\Event\OrderWasDelivered': domain_events
+            'App\Order\Domain\Event\OrderWasCanceled': domain_events
