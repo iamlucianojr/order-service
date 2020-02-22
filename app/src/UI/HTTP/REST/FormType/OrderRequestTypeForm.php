@@ -20,8 +20,8 @@ final class OrderRequestTypeForm extends AbstractType
             ->add('table_identifier', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new NotNull()
-                ]
+                    new NotNull(),
+                ],
             ])
             ->add('items', ItemCollectionType::class)
         ;

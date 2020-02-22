@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Service;
 
-final class StockUnit
+final class CheckIfThereAreStockUnits implements CheckIfThereAreStockUnitsInterface
 {
     public function execute(array $items): bool
     {

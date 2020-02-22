@@ -7,7 +7,7 @@ namespace App\Tests\Order\Domain\ValueObject;
 use App\Order\Domain\ValueObject\Item;
 use PHPUnit\Framework\TestCase;
 
-class ItemTest extends TestCase
+final class ItemTest extends TestCase
 {
 
     public function testFromArray(): void

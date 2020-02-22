@@ -20,8 +20,8 @@ final class OrderCancelRequestTypeForm extends AbstractType
                 'constraints' => [
                     new NotNull(),
                     new NotBlank(),
-                    new Uuid()
-                ]
+                    new Uuid(),
+                ],
             ])
         ;
     }

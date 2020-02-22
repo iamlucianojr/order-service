@@ -22,7 +22,7 @@ final class OrderWasDelivered extends AggregateChanged
         Status $status
     ): self {
         $event = self::occur($orderId->toString(), [
-            'status' => $status->toString()
+            'status' => $status->toString(),
         ]);
 
         $event->status = $status;

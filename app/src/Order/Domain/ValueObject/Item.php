@@ -56,7 +56,7 @@ final class Item implements ValueObjectInterface
         return [
             'uuid' => $this->uuid->toString(),
             'type' => $this->type->toString(),
-            'quantity' =>  $this->quantity
+            'quantity' => $this->quantity,
         ];
     }
 

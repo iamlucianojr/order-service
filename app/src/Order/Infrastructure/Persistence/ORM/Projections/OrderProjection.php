@@ -14,41 +14,36 @@ final class OrderProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
+        $readModel = $projector->readModel();
         $projector->fromStreams('event_stream')
             ->when([
-                OrderWasRequested::class => function ($state, OrderWasRequested $event) {
-                    $readModel = $this->readModel();
-                    assert($readModel instanceof OrderReadModel);
+                OrderWasRequested::class => function ($state, OrderWasRequested $event) use ($readModel) {
                     $readModel->stack('insert', [
                         'order_id' => $event->aggregateId(),
                         'establishment_id' => $event->establishment()->establishmentId()->toString(),
                         'catalog_flow_id' => $event->catalogFlow()->catalogFlowId()->toString(),
                         'catalog_flow_version' => $event->catalogFlow()->version(),
                         'table_identifier' => $event->tableIdentifier()->toString(),
-                        'status' => $event->status()->toString()
+                        'status' => $event->status()->toString(),
                     ]);
                 },
-                OrderWasCanceled::class => function ($state, OrderWasCanceled $event) {
-                    $readModel = $this->readModel();
-                    assert($readModel instanceof OrderReadModel);
+                OrderWasCanceled::class => function ($state, OrderWasCanceled $event) use ($readModel) {
                     $readModel->stack('update',
                         [
-                            'status' => $event->status()->toString()
+                            'status' => $event->status()->toString(),
                         ],
                         [
-                            'order_id' => $event->aggregateId()
+                            'order_id' => $event->aggregateId(),
                         ]
                     );
                 },
-                OrderWasDelivered::class => function ($state, OrderWasDelivered $event) {
-                    $readModel = $this->readModel();
-                    assert($readModel instanceof OrderReadModel);
+                OrderWasDelivered::class => function ($state, OrderWasDelivered $event) use ($readModel) {
                     $readModel->stack('update',
                         [
-                            'status' => $event->status()->toString()
+                            'status' => $event->status()->toString(),
                         ],
                         [
-                            'order_id' => $event->aggregateId()
+                            'order_id' => $event->aggregateId(),
                         ]
                     );
                 },
