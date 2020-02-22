@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker CI
 
 on: [push]
 
@@ -10,13 +10,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Build the Docker image
-      run: docker build . --file docker/php/Dockerfile.baseimage --tag lucianojr/order-service:$(git rev-parse HEAD)
+    - name: Build the PHP base docker image
+      run: docker build . --file docker/php/Dockerfile.baseimage --tag lucianojr/order-service-php:$(git rev-parse HEAD)
+
+    - uses: actions/checkout@master
+    - name: Build the PHP dev docker image
+      run: docker build . --file docker/php/Dockerfile.dev --tag lucianojr/order-service-php-dev:$(git rev-parse HEAD)
+
+    - uses: actions/checkout@master
+    - name: Build the PHP prod docker image
+      run: docker build . --file docker/php/Dockerfile.prod --tag lucianojr/order-service-php-prod:$(git rev-parse HEAD)
 
     - uses: actions/checkout@master
     - name: Login docker hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
     - uses: actions/checkout@master
-    - name: Push the Docker image to registry
-      run: docker push lucianojr/order-service:$(git rev-parse HEAD)
+    - name: Push the base docker image to registry
+      run: docker push lucianojr/order-service-php:$(git rev-parse HEAD)
