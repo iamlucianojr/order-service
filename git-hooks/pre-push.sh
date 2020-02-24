@@ -17,7 +17,7 @@ RESULT=$?
 if ! [[ ${RESULT} -eq 0 ]]; then
     echo "###################################################################################################";
     echo "It was not possible to push your code!";
-    echo "You tests did not pass, please fix it!";
+    echo "Your tests did not pass, please fix it!";
     echo "###################################################################################################";
     exit 1
 fi
