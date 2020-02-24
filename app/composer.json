@@ -1,8 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
-    "name": "appointly-online/appointment-service",
-    "description": "Appointment service",
+    "name": "luciano-jr/order-service",
+    "description": "Order service",
     "require": {
         "php": "^7.4",
         "ext-ctype": "*",
