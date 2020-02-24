@@ -13,7 +13,7 @@ fi
 
 # Check against the PHP Stan (Analysis tool trying to find bugs, or possible bugs)
 echo "Check against the PHP Stan (Analysis tool trying to find bugs, or possible bugs)"
-docker-compose exec -T php php -d memory_limit=2G ./vendor/phpstan/phpstan/bin/phpstan analyse ${FILES} -c phpstan.neon.dist
+docker-compose exec -T php php -d memory_limit=2G ./vendor/phpstan/phpstan/phpstan analyse ${FILES} -c phpstan.neon.dist
 RESULT=$?
 
 if [[ ${RESULT} -ne 0 ]]; then

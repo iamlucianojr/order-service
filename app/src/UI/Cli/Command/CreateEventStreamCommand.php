@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Cli\Command;
 
+use ArrayIterator;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\Stream;
 use Prooph\EventStore\StreamName;
@@ -29,9 +30,11 @@ final class CreateEventStreamCommand extends Command
             ->setHelp('This command creates the event_stream');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->eventStore->create(new Stream(new StreamName('event_stream'), new \ArrayIterator([])));
+        $this->eventStore->create(new Stream(new StreamName('event_stream'), new ArrayIterator([])));
         $output->writeln('<info>Event stream was created successfully.</info>');
+
+        return 0;
     }
 }

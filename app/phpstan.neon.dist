@@ -1,0 +1,19 @@
+parameters:
+    level: 5
+
+    reportUnmatchedIgnoredErrors: false
+    inferPrivatePropertyTypeFromConstructor: true
+
+    customRulesetUsed: true
+
+    autoload_files:
+        - ./vendor/autoload.php
+
+    excludes_analyse:
+        - %rootDir%/../../../tests
+
+    fileExtensions:
+        - php
+
+includes:
+    - vendor/phpstan/phpstan-beberlei-assert/extension.neon
