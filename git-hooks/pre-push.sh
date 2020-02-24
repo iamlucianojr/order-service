@@ -1,17 +1,7 @@
 #!/bin/bash
 
-# Localize the files changed and getting only the relative filename
-FILES=$( git status --porcelain | grep -e '^[AC]\(.*\).php$' | cut -c 8-)
-
-# If there are no PHP files, we don't need to continue into the script
-if [[ ${FILES} == "" ]]; then
-    echo "No files"
-    exit 0;
-fi
-
-# Executing PHP Unit testing. If the tests fail, we exit the script earlier
 echo "Executing PHP Unit testing. If the tests fail, we exit the script earlier"
-docker-compose exec -T php /bin/bash -c "./vendor/symfony/phpunit-bridge/bin/simple-phpunit -c phpunit.xml.dist"
+docker-compose exec -T php /bin/bash -c "./vendor/symfony/phpunit-bridge/bin/simple-phpunit -c phpunit.xml.dist ./tests/unit"
 RESULT=$?
 
 if ! [[ ${RESULT} -eq 0 ]]; then
