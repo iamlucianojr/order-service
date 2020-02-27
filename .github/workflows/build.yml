@@ -42,22 +42,5 @@ jobs:
     - name: Run phpunit
       run: composer run-script phpunit -d app
 
-    - uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@master
-      with:
-        coverage: pcov
-        php-version: '7.4'
-        extension: dom, fileinfo, mbstring
-    - run: |
-          composer install --no-suggest --prefer-dist --optimize-autoloader
-
-    - uses: theomessin/action-phpcov
-    - name: Run code coverage
-      with:
-        min_coverage: 0
-        now_project: "action-phpcov"
-        now_token: ${{ secrets.NOW_TOKEN }}
-        phpunit: "composer run-script phpunit -d app"
-
     - name: Run phpstan
       run: composer run-script phpstan -d app
