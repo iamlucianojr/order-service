@@ -29,16 +29,18 @@ jobs:
     - name: Push the base docker image to registry
       run: docker push lucianojr/order-service-php:$(git rev-parse HEAD)
 
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
     - name: Validate composer.json and composer.lock
       run: composer validate -d app
 
+    - uses: actions/checkout@master
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest -d app
 
+    - uses: actions/checkout@master
     - name: Run phpunit
       run: composer run-script phpunit -d app
 
+    - uses: actions/checkout@master
     - name: Run phpstan
       run: composer run-script phpstan -d app
-
