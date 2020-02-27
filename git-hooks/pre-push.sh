@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Executing PHP Unit testing. If the tests fail, we exit the script earlier"
-docker-compose exec -T php sh -c "./bin/phpunit -c phpunit.xml.dist ./tests"
+docker-compose exec -T php sh -c "./bin/phpunit -c phpunit.xml.dist --testdox ./tests"
 RESULT=$?
 
 if ! [[ ${RESULT} -eq 0 ]]; then

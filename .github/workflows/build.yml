@@ -1,4 +1,4 @@
-name: Docker CI
+name: Build
 
 on: [push]
 
@@ -13,18 +13,26 @@ jobs:
     - name: Build the PHP base docker image
       run: docker build . --file docker/php/Dockerfile.baseimage --tag lucianojr/order-service-php:$(git rev-parse HEAD)
 
-    - uses: actions/checkout@master
     - name: Build the PHP dev docker image
       run: docker build . --file docker/php/Dockerfile.dev --tag lucianojr/order-service-php-dev:$(git rev-parse HEAD)
 
-    - uses: actions/checkout@master
     - name: Build the PHP prod docker image
       run: docker build . --file docker/php/Dockerfile.prod --tag lucianojr/order-service-php-prod:$(git rev-parse HEAD)
 
-    - uses: actions/checkout@master
     - name: Login docker hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-    - uses: actions/checkout@master
     - name: Push the base docker image to registry
       run: docker push lucianojr/order-service-php:$(git rev-parse HEAD)
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate -d app
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest -d app
+
+    - name: Run phpstan
+      run: composer run-script phpstan -d app
+
+    - name: Run phpunit
+      run: composer run-script phpunit -d app

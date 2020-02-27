@@ -38,7 +38,7 @@ final class OrderRedoHandler implements MessageHandlerInterface
         $stockUnits = $this->stockChecker->execute($originalOrder->items()->toArray());
 
         if (false === $stockUnits) {
-            throw new NonStockUnitsForOrderItemException(sprintf('The order has items out of stock. Please chose another item', ));
+            throw new NonStockUnitsForOrderItemException('The order has items out of stock. Please chose another item');
         }
 
         $order = Order::register(

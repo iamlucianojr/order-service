@@ -28,7 +28,8 @@ final class OrderProjection implements ReadModelProjection
                     ]);
                 },
                 OrderWasCanceled::class => function ($state, OrderWasCanceled $event) use ($readModel) {
-                    $readModel->stack('update',
+                    $readModel->stack(
+                        'update',
                         [
                             'status' => $event->status()->toString(),
                         ],
@@ -38,7 +39,8 @@ final class OrderProjection implements ReadModelProjection
                     );
                 },
                 OrderWasDelivered::class => function ($state, OrderWasDelivered $event) use ($readModel) {
-                    $readModel->stack('update',
+                    $readModel->stack(
+                        'update',
                         [
                             'status' => $event->status()->toString(),
                         ],
