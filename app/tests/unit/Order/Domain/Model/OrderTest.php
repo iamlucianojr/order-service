@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\unit\Order\Domain\Model;
 
+use App\Order\Domain\Exception\CannotCancelDeliveredOrderException;
+use App\Order\Domain\Exception\CannotDeliverCanceledOrderException;
 use App\Order\Domain\ValueObject\CatalogFlow;
 use App\Order\Domain\ValueObject\Establishment;
 use App\Order\Domain\ValueObject\Item;
@@ -13,6 +15,7 @@ use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\ProductType;
 use App\Order\Domain\ValueObject\Status;
 use App\Order\Domain\ValueObject\TableIdentifier;
+use App\Shared\EntityInterface;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -21,12 +24,12 @@ final class OrderTest extends TestCase
     public function testOrderRegisterCreatesWaitingOrder(): void
     {
         $establishment = Establishment::fromArray([
-            'uuid' => Uuid::uuid4()->toString()
+            'uuid' => Uuid::uuid4()->toString(),
         ]);
 
         $catalogFlow = CatalogFlow::fromArray([
             'uuid' => Uuid::uuid4()->toString(),
-            'version' => 1
+            'version' => 1,
         ]);
 
         $tableIdentifier = TableIdentifier::fromString('TABLE01');
@@ -35,13 +38,13 @@ final class OrderTest extends TestCase
             [
                 'uuid' => Uuid::uuid4(),
                 'type' => ProductType::FOOD,
-                'quantity' => rand(1, 5)
+                'quantity' => rand(1, 5),
             ],
             [
                 'uuid' => Uuid::uuid4(),
                 'type' => ProductType::DRINK,
-                'quantity' => rand(5, 10)
-            ]
+                'quantity' => rand(5, 10),
+            ],
         ]);
 
         $order = Order::register(
@@ -65,11 +68,80 @@ final class OrderTest extends TestCase
         $this->assertEquals($order->status(), Status::delivered());
     }
 
+    public function testOrderDeliverUsingAlreadyCanceledOrder(): void
+    {
+        $this->expectException(CannotDeliverCanceledOrderException::class);
+        $order = $this->getAnOrder();
+        $order->cancel();
+        $order->deliver();
+    }
+
     public function testOrderCancel(): void
     {
         $order = $this->getAnOrder();
         $order->cancel();
         $this->assertEquals($order->status(), Status::canceled());
+    }
+
+    public function testOrderCancelUsingAlreadyDeliveredOrder(): void
+    {
+        $this->expectException(CannotCancelDeliveredOrderException::class);
+        $order = $this->getAnOrder();
+        $order->deliver();
+        $order->cancel();
+    }
+
+    public function testItems(): void
+    {
+        $order = $this->getAnOrder();
+        $this->assertInstanceOf(ItemCollection::class, $order->items());
+    }
+
+    public function testEquals(): void
+    {
+        $orderOne = $this->getAnOrder();
+        $orderTwo = $this->getAnOrder();
+
+        $this->assertFalse($orderOne->equals($orderTwo));
+        $this->assertFalse($orderTwo->equals($orderOne));
+
+        $clonedOrder = clone $orderOne;
+        $this->assertEquals($orderOne, $clonedOrder);
+    }
+
+    public function testEqualsUsingDifferentClass(): void
+    {
+        $orderOne = $this->getAnOrder();
+
+        $this->assertFalse($orderOne->equals($this->createMock(EntityInterface::class)));
+    }
+
+    public function testAggregateId(): void
+    {
+        $orderUuid = Uuid::uuid4()->toString();
+        $order = Order::register(
+            OrderId::fromString($orderUuid),
+            Establishment::fromArray(['uuid' => Uuid::uuid4()->toString()]),
+            CatalogFlow::fromArray([
+                'uuid' => Uuid::uuid4()->toString(),
+                'version' => 1,
+            ]),
+            TableIdentifier::fromString('TABLE_3'),
+            ItemCollection::fromItems(
+                Item::fromArray([
+                    'uuid' => Uuid::uuid4(),
+                    'type' => ProductType::FOOD,
+                    'quantity' => rand(1, 5),
+                ]),
+                Item::fromArray([
+                    'uuid' => Uuid::uuid4(),
+                    'type' => ProductType::DRINK,
+                    'quantity' => rand(5, 10),
+                ])
+            )
+        );
+
+        $this->assertSame($orderUuid, $order->aggregateId());
     }
 
     private function getAnOrder(): Order
@@ -79,19 +151,19 @@ final class OrderTest extends TestCase
             Establishment::fromArray(['uuid' => Uuid::uuid4()->toString()]),
             CatalogFlow::fromArray([
                 'uuid' => Uuid::uuid4()->toString(),
-                'version' => 1
+                'version' => 1,
             ]),
             TableIdentifier::fromString('TABLE_02'),
             ItemCollection::fromItems(
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
                     'type' => ProductType::FOOD,
-                    'quantity' => rand(1, 5)
+                    'quantity' => rand(1, 5),
                 ]),
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
                     'type' => ProductType::DRINK,
-                    'quantity' => rand(5, 10)
+                    'quantity' => rand(5, 10),
                 ])
             )
         );
