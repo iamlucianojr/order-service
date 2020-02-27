@@ -37,8 +37,8 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest -d app
 
     - name: Run phpunit
-      run: composer run-script phpunit
+      run: composer run-script phpunit -d app
 
     - name: Run phpstan
-      run: composer run-script phpstan
+      run: composer run-script phpstan -d app
 
