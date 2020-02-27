@@ -1,4 +1,4 @@
-name: Docker CI
+name: Build
 
 on: [push]
 
@@ -37,5 +37,8 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest -d app
 
     - name: Run phpunit
-      run: php app/bin/simple-phpunit -c app/phpunit.xml.dist
+      run: composer run-script phpunit
+
+    - name: Run phpstan
+      run: composer run-script phpstan
 

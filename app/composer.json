@@ -75,7 +75,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "phpmd": "phpmd src/ xml phpmd.xml",
+        "phpstan": "phpstan analyse src -c phpstan.neon.dist",
+        "phpunit": "bin/phpunit tests"
     },
     "conflict": {
         "symfony/symfony": "*"
