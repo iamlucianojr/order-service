@@ -43,6 +43,7 @@ jobs:
       run: composer run-script phpunit -d app
 
     - uses: theomessin/action-phpcov
+    - name: Run code coverage
       with:
         min_coverage: 0
         now_project: "action-phpcov"
