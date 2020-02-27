@@ -29,18 +29,25 @@ jobs:
     - name: Push the base docker image to registry
       run: docker push lucianojr/order-service-php:$(git rev-parse HEAD)
 
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
     - name: Validate composer.json and composer.lock
       run: composer validate -d app
 
-    - uses: actions/checkout@master
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest -d app
 
-    - uses: actions/checkout@master
+    - name: Run phpstan
+      run: composer run-script phpstan -d app
+
     - name: Run phpunit
       run: composer run-script phpunit -d app
 
-    - uses: actions/checkout@master
+    - uses: theomessin/action-phpcov
+      with:
+        min_coverage: 0
+        now_project: "action-phpcov"
+        now_token: ${{ secrets.NOW_TOKEN }}
+        phpunit: "composer run-script phpunit -d app"
+
     - name: Run phpstan
       run: composer run-script phpstan -d app
