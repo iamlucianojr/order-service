@@ -31,7 +31,7 @@ final class Establishment implements ValueObjectInterface
     public function toArray(): array
     {
         return [
-            'uuid' => $this->establishmentId->toString()
+            'uuid' => $this->establishmentId->toString(),
         ];
     }
 

@@ -10,6 +10,7 @@ use Prooph\EventSourcing\Aggregate\AggregateRepository;
 use Prooph\EventSourcing\Aggregate\AggregateType;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\EventStore;
+use RuntimeException;
 
 final class OrderRepository extends AggregateRepository implements OrderRepositoryInterface
 {
@@ -29,7 +30,13 @@ final class OrderRepository extends AggregateRepository implements OrderReposito
 
     public function get(OrderId $orderId): ?Order
     {
-        return $this->getAggregateRoot($orderId->toString());
+        $order = $this->getAggregateRoot($orderId->toString());
+
+        if (null !== $order && !$order instanceof Order) {
+            throw new RuntimeException(sprintf('Object returned by AggregateRepository %s is not an instance of Order', get_class($order)));
+        }
+
+        return $order;
     }
 
     public function findByCriteria(array $criteria): ?array

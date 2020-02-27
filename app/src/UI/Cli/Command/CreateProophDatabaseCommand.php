@@ -53,7 +53,7 @@ CREATE TABLE projections (
             ->setDescription('Create database for prooph.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $connection = $this->connection;
         $connection->beginTransaction();
@@ -61,5 +61,7 @@ CREATE TABLE projections (
         $connection->query(self::CREATE_CATEGORY_INDEX_QUERY);
         $connection->query(self::CREATE_PROJECTION_TABLE_QUERY);
         $connection->commit();
+
+        return 0;
     }
 }

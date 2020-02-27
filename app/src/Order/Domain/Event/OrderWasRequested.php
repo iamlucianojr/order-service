@@ -6,8 +6,8 @@ namespace App\Order\Domain\Event;
 
 use App\Order\Domain\ValueObject\CatalogFlow;
 use App\Order\Domain\ValueObject\Establishment;
-use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\ItemCollection;
+use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\Status;
 use App\Order\Domain\ValueObject\TableIdentifier;
 use Prooph\EventSourcing\AggregateChanged;
@@ -75,7 +75,7 @@ final class OrderWasRequested extends AggregateChanged
                 'catalog_flow' => $catalogFlow->toArray(),
                 'table_identifier' => $tableIdentifier->toString(),
                 'items' => $items->toArray(),
-                'status' => $status->toString()
+                'status' => $status->toString(),
             ]
         );
 

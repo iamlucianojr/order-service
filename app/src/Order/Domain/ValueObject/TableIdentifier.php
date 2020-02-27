@@ -27,6 +27,10 @@ final class TableIdentifier implements ValueObjectInterface
 
     public function equals(ValueObjectInterface $other): bool
     {
+        if (!$other instanceof self) {
+            return false;
+        }
+
         return get_class($this) === get_class($other) && $this->identifier === $other->identifier;
     }
 }

@@ -20,14 +20,14 @@ final class OrderRequestTypeForm extends AbstractType
             ->add('table_identifier', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new NotNull()
-                ]
+                    new NotNull(),
+                ],
             ])
             ->add('items', ItemCollectionType::class)
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => OrderRequestDto::class,

@@ -36,7 +36,7 @@ final class CatalogFlow implements ValueObjectInterface
     {
         return [
             'uuid' => $this->catalogFlowId->toString(),
-            'version' => $this->version
+            'version' => $this->version,
         ];
     }
 

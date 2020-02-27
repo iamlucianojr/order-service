@@ -123,7 +123,7 @@ class Order extends AggregateRoot implements EntityInterface
             'catalog_flow' => $this->catalogFlow->toArray(),
             'table_identifier' => $this->tableIdentifier->toString(),
             'items' => $this->items->toArray(),
-            'status' => $this->status->toString()
+            'status' => $this->status->toString(),
         ];
     }
 

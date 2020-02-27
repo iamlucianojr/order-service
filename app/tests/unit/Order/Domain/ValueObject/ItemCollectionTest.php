@@ -10,7 +10,7 @@ use App\Order\Domain\ValueObject\ProductType;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class ItemCollectionTest extends TestCase
+final class ItemCollectionTest extends TestCase
 {
     public function testLast(): void
     {

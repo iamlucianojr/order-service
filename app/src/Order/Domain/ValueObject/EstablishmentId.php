@@ -35,6 +35,10 @@ final class EstablishmentId implements ValueObjectInterface
 
     public function equals(ValueObjectInterface $other): bool
     {
+        if (!$other instanceof self) {
+            return false;
+        }
+
         return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }
 }
