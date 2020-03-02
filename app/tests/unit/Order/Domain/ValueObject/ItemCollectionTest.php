@@ -29,7 +29,6 @@ final class ItemCollectionTest extends TestCase
 
     public function testFromArray(): void
     {
-        $item = $this->item();
         $collection = ItemCollection::fromArray([
             [
                 'uuid' => Uuid::uuid4()->toString(),

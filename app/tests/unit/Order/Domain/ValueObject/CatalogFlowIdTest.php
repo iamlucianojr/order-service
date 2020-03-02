@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Order\Domain\ValueObject;
 
 use App\Order\Domain\ValueObject\CatalogFlowId;
+use App\Shared\ValueObjectInterface;
 use PHPUnit\Framework\TestCase;
 
 final class CatalogFlowIdTest extends TestCase
@@ -28,6 +29,12 @@ final class CatalogFlowIdTest extends TestCase
         $catalogFlowIdTwo = clone $catalogFlowIdOne;
         $this->assertTrue($catalogFlowIdOne->equals($catalogFlowIdTwo));
         $this->assertFalse($catalogFlowIdOne->equals(CatalogFlowId::generate()));
+    }
+
+    public function testEqualsUsingDifferentClass(): void
+    {
+        $catalogFlowId = CatalogFlowId::generate();
+        $this->assertFalse($catalogFlowId->equals($this->createMock(ValueObjectInterface::class)));
     }
 
     public function testFromString(): void
