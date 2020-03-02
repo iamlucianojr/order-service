@@ -61,5 +61,14 @@ services:
         depends_on:
             - postgres
         ports:
-            - 5433:5433
+            - ${GRAPHQL_PORT}:5433
         command: ["--connection", "postgres://${POSTGRES_PASS}:${POSTGRES_USER}@postgres/${POSTGRES_DB}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter"]
+
+    metabase:
+        image: metabase/metabase
+        depends_on:
+            - postgres
+        ports:
+            - ${METABASE_PORT}:3000
+        volumes:
+            - ./var/data/metabase:/var/lib/metabase
