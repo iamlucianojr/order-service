@@ -91,5 +91,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+`sh install-git-hooks.sh` to install git hooks.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
