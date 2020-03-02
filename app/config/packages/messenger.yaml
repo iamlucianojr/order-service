@@ -8,7 +8,7 @@ framework:
                 default_middleware: allow_no_handlers
 
             query.bus: ~
-
+        failure_transport: failed
         serializer:
             default_serializer: messenger.transport.symfony_serializer
             symfony_serializer:
@@ -20,6 +20,8 @@ framework:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%/write_commands'
             domain_events:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%/domain_events'
+            failed:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/failed'
 
         routing:
             'App\Order\Application\Command\OrderRequestCommand': write_commands

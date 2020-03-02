@@ -27,6 +27,7 @@ CREATE TABLE $tableName (
   catalog_flow_id varchar NOT NULL,
   catalog_flow_version BIGSERIAL NOT NULL,
   table_identifier varchar NOT NULL,
+  items JSON NOT NULL,
   status varchar NOT NULL,
   PRIMARY KEY (order_id)
 );

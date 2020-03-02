@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ProductTypeTest extends TestCase
 {
-
     public function testFromString(): void
     {
         $productType = ProductType::fromString('food');
@@ -26,5 +25,18 @@ final class ProductTypeTest extends TestCase
     {
         $productType = ProductType::food();
         $this->assertEquals(ProductType::FOOD, $productType->toString());
+    }
+
+    public function testType(): void
+    {
+        $productType = ProductType::drink();
+        $this->assertEquals(ProductType::drink(), $productType->type());
+    }
+
+    public function testToString(): void
+    {
+        $productType = ProductType::drink();
+        $this->assertIsString($productType->toString());
+        $this->assertEquals('drink', $productType->toString());
     }
 }

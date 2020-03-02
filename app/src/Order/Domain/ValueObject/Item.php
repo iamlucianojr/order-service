@@ -60,12 +60,12 @@ final class Item implements ValueObjectInterface
         ];
     }
 
-    public function equals(ValueObjectInterface $other): bool
+    public function equals(ValueObjectInterface $valueObject): bool
     {
-        if (!$other instanceof self) {
+        if (!$valueObject instanceof self) {
             return false;
         }
 
-        return $this->toArray() === $other->toArray();
+        return $valueObject->toArray() === $valueObject->toArray();
     }
 }

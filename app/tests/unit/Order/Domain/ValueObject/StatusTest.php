@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 final class StatusTest extends TestCase
 {
-
     public function testDelivered(): void
     {
         $status = Status::fromString('delivered');

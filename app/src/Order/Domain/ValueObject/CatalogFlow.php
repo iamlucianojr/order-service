@@ -13,7 +13,7 @@ final class CatalogFlow implements ValueObjectInterface
 
     private int $version;
 
-    public function __construct(
+    private function __construct(
         CatalogFlowId $catalogFlowId,
         int $version
     ) {

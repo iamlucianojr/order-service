@@ -31,7 +31,6 @@ final class OrderRepository extends AggregateRepository implements OrderReposito
     public function get(OrderId $orderId): ?Order
     {
         $order = $this->getAggregateRoot($orderId->toString());
-
         if (null !== $order && !$order instanceof Order) {
             throw new RuntimeException(sprintf('Object returned by AggregateRepository %s is not an instance of Order', get_class($order)));
         }

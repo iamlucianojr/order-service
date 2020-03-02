@@ -81,14 +81,15 @@ final class OrderController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $newOrderUuid = Uuid::uuid4()->toString();
             $command = new OrderRedoCommand(
-                Uuid::uuid4()->toString(),
+                $newOrderUuid,
                 $data['uuid']
             );
 
             $this->commandBus->dispatch($command);
 
-            return new JsonResponse([], Response::HTTP_OK);
+            return new JsonResponse(['uuid' => $newOrderUuid], Response::HTTP_OK);
         }
 
         return $this->json($form, Response::HTTP_BAD_REQUEST);
