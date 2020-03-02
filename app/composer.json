@@ -82,8 +82,9 @@
         "phpcs": "phpcs -d memory_limit=32M src/",
         "phpcbf": "phpcbf -d memory_limit=32M src/",
         "phpstan": "phpstan analyse src -c phpstan.neon.dist",
-        "php-cs-fixer": "php-cs-fixer fix --config=.php_cs.dist -v --dry-run --show-progress=dots --using-cache=no --diff src/",
-        "phpunit": "bin/phpunit --testdox"
+        "php-cs-fixer": "php-cs-fixer fix tests/ src/ --config=.php_cs.dist -v --show-progress=dots --using-cache=no --diff",
+        "phpunit": "bin/phpunit --testdox --coverage-html tests/coverage",
+        "phpunit-domain": "bin/phpunit tests/unit/Order/Domain --testdox --coverage-html tests/coverage"
     },
     "conflict": {
         "symfony/symfony": "*"

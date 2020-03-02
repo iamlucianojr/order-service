@@ -24,6 +24,7 @@ final class OrderProjection implements ReadModelProjection
                         'catalog_flow_id' => $event->catalogFlow()->catalogFlowId()->toString(),
                         'catalog_flow_version' => $event->catalogFlow()->version(),
                         'table_identifier' => $event->tableIdentifier()->toString(),
+                        'items' => $event->items()->__toString(),
                         'status' => $event->status()->toString(),
                     ]);
                 },

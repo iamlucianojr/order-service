@@ -62,4 +62,4 @@ services:
             - postgres
         ports:
             - 5433:5433
-        command: ["--connection", "postgres://${POSTGRES_PASS}:${POSTGRES_USER}@postgres/${POSTGRES_DB}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter"]
+        command: ["--connection", "postgres://${POSTGRES_PASS}:${POSTGRES_USER}@postgres/${POSTGRES_DB}", "--port", "5433", "--schema", "public", "--append-plugins", "postgraphile-plugin-connection-filter", "--cors"]

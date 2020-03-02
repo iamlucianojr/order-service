@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Command\Handler;
 
-use App\Order\Application\Command\OrderRedoCommand;
+use App\Order\Application\Command\OrderRedoCommandInterface;
 use App\Order\Application\Service\CheckIfThereAreStockUnitsInterface;
 use App\Order\Domain\Exception\NonStockUnitsForOrderItemException;
+use App\Order\Domain\Exception\OrderNotFoundException;
 use App\Order\Domain\Model\Order;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Infrastructure\Persistence\Repository\OrderRepositoryInterface;
-use RuntimeException;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class OrderRedoHandler implements MessageHandlerInterface
@@ -27,12 +27,12 @@ final class OrderRedoHandler implements MessageHandlerInterface
         $this->stockChecker = $stockChecker;
     }
 
-    public function __invoke(OrderRedoCommand $command): void
+    public function __invoke(OrderRedoCommandInterface $command): void
     {
         $originalOrder = $this->repository->get(OrderId::fromString($command->getFromOrderId()));
 
         if (!$originalOrder instanceof Order) {
-            throw new RuntimeException(sprintf('Could not find original order %s', $command->getFromOrderId()));
+            throw new OrderNotFoundException(sprintf('Could not find original order %s', $command->getFromOrderId()));
         }
 
         $stockUnits = $this->stockChecker->execute($originalOrder->items()->toArray());

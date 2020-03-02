@@ -1,5 +1,5 @@
-framework:
-    messenger:
-        serializer: ~
-        transports:
-            write_commands: 'sync://'
+#framework:
+#    messenger:
+#        serializer: ~
+#        transports:
+#            write_commands: 'sync://'
