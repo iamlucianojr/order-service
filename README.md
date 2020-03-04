@@ -78,8 +78,6 @@ It will project the orders into the read_order table, that can be read by using 
 
 We can use [Metabase](https://www.metabase.com/) to have charts and results about the orders 
 
-The frontend project containing the app using this service can be found [here](https://github.com/luciano-jr/order-app) 
-
 ## Goals
 
 Order Service
