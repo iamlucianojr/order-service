@@ -51,6 +51,12 @@ final class Order extends AggregateRoot implements EntityInterface
             Status::waiting()
         ));
 
+        $self->orderId = $orderId;
+        $self->establishment = $establishment;
+        $self->catalogFlow = $catalogFlow;
+        $self->tableIdentifier = $tableIdentifier;
+        $self->items = $items;
+
         return $self;
     }
 
@@ -62,7 +68,7 @@ final class Order extends AggregateRoot implements EntityInterface
 
         $this->recordThat(OrderWasDelivered::withData($this->orderId, Status::delivered()));
 
-        $this->status = Status::delivered();
+//        $this->status = Status::delivered();
 
         return $this;
     }
@@ -75,7 +81,7 @@ final class Order extends AggregateRoot implements EntityInterface
 
         $this->recordThat(OrderWasCanceled::withData($this->orderId, Status::canceled()));
 
-        $this->status = Status::canceled();
+//        $this->status = Status::canceled();
 
         return $this;
     }

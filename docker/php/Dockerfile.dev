@@ -2,6 +2,13 @@ FROM lucianojr/order-service-php:latest
 
 COPY ./docker/php/conf/php.dev.ini /usr/local/etc/php/php.ini
 
+ARG INSTALL_XDEBUG=true
+
+RUN if [ ${INSTALL_XDEBUG} = true ]; then \
+  yes | pecl install xdebug-2.9.2 \
+  && docker-php-ext-enable xdebug \
+;fi
+
 COPY ./docker/php/conf/ext/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY ./app /var/www/app

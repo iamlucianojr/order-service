@@ -108,7 +108,7 @@ final class OrderController extends AbstractController
 
             $this->commandBus->dispatch($command);
 
-            return new JsonResponse([], Response::HTTP_OK);
+            return new JsonResponse(null, Response::HTTP_OK);
         }
 
         return $this->json($form, Response::HTTP_BAD_REQUEST);

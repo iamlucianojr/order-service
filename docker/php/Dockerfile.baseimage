@@ -24,7 +24,6 @@ RUN  apk add --no-cache --virtual .build-deps \
 	&& docker-php-ext-install \
 		pdo \
 		pdo_pgsql \
-#		mbstring \
 		intl \
     # APC and enabling PHP extensions
 	&& pecl install apcu-${APCU_VERSION} \

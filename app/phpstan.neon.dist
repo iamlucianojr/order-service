@@ -10,7 +10,7 @@ parameters:
         - ./vendor/autoload.php
 
     excludes_analyse:
-        - %rootDir%/../../../tests
+            - %rootDir%/../../../tests
 
     fileExtensions:
         - php
