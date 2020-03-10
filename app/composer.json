@@ -10,7 +10,7 @@
         "beberlei/assert": "^3.2",
         "friendsofsymfony/rest-bundle": "^2.7",
         "prooph/event-sourcing": "^5.6",
-        "prooph/event-store-symfony-bundle": "^0.6",
+        "prooph/event-store-symfony-bundle": "^0.8",
         "prooph/pdo-event-store": "^1.11",
         "ramsey/uuid": "^3.8",
         "ramsey/uuid-doctrine": "^1.5",
