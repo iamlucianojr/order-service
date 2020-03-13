@@ -24,7 +24,7 @@
         "symfony/polyfill-uuid": "^1.14",
         "symfony/serializer-pack": "^1.0",
         "symfony/thanks": "^1.2",
-        "symfony/validator": "4.4.*",
+        "symfony/validator": "5.0.*",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
