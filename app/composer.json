@@ -30,7 +30,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpmd/phpmd": "^2.8",
-        "phpstan/phpstan": "^0.12.11",
+        "phpstan/phpstan": "^0.12.19",
         "phpstan/phpstan-beberlei-assert": "^0.12.2",
         "phpstan/phpstan-doctrine": "^0.12.9",
         "phpstan/phpstan-symfony": "^0.12.4",
