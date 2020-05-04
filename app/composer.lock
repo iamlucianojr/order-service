@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aa4a443c5defdb4a29e100e6d587b3c",
+    "content-hash": "f2f700c8f2673130d72416beefb3e21b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -6043,6 +6043,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -6089,6 +6090,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -6500,16 +6502,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "0.12.9",
+            "version": "0.12.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "af14feb2ed259f9eb16d3107e63d85ed516e30af"
+                "reference": "fb0350e215668d97d3d41af6c0f556eefbe07678"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/af14feb2ed259f9eb16d3107e63d85ed516e30af",
-                "reference": "af14feb2ed259f9eb16d3107e63d85ed516e30af",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/fb0350e215668d97d3d41af6c0f556eefbe07678",
+                "reference": "fb0350e215668d97d3d41af6c0f556eefbe07678",
                 "shasum": ""
             },
             "require": {
@@ -6560,7 +6562,7 @@
                 "MIT"
             ],
             "description": "Doctrine extensions for PHPStan",
-            "time": "2020-01-10T12:31:37+00:00"
+            "time": "2020-05-04T08:09:44+00:00"
         },
         {
             "name": "phpstan/phpstan-symfony",
