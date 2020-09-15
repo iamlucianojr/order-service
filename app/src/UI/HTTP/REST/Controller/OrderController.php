@@ -13,6 +13,7 @@ use App\UI\HTTP\REST\FormType\OrderCancelRequestTypeForm;
 use App\UI\HTTP\REST\FormType\OrderDeliverRequestTypeForm;
 use App\UI\HTTP\REST\FormType\OrderRedoRequestTypeForm;
 use App\UI\HTTP\REST\FormType\OrderRequestTypeForm;
+use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
@@ -24,12 +25,17 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final class OrderController extends AbstractController
 {
     use ControllerTrait;
+
     private MessageBusInterface $commandBus;
 
+    private LoggerInterface $logger;
+
     public function __construct(
-        MessageBusInterface $commandBus
+        MessageBusInterface $commandBus,
+        LoggerInterface $logger
     ) {
         $this->commandBus = $commandBus;
+        $this->logger = $logger;
     }
 
     public function create(Request $request): Response
@@ -68,7 +74,7 @@ final class OrderController extends AbstractController
 
             $this->commandBus->dispatch($command);
 
-            return new JsonResponse([], Response::HTTP_OK);
+            return new JsonResponse(null, Response::HTTP_OK);
         }
 
         return $this->json($form, Response::HTTP_BAD_REQUEST);

@@ -79,6 +79,7 @@ final class OrderWasRequested extends AggregateChanged
             ]
         );
 
+        $event->orderId = $orderId;
         $event->establishment = $establishment;
         $event->catalogFlow = $catalogFlow;
         $event->tableIdentifier = $tableIdentifier;
@@ -86,5 +87,35 @@ final class OrderWasRequested extends AggregateChanged
         $event->status = $status;
 
         return $event;
+    }
+
+    public function getOrderId(): string
+    {
+        return $this->orderId->toString();
+    }
+
+    public function getEstablishment(): array
+    {
+        return $this->establishment->toArray();
+    }
+
+    public function getCatalogFlow(): array
+    {
+        return $this->catalogFlow->toArray();
+    }
+
+    public function getTableIdentifier(): string
+    {
+        return $this->tableIdentifier->toString();
+    }
+
+    public function getItems(): array
+    {
+        return $this->items->toArray();
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status->toString();
     }
 }

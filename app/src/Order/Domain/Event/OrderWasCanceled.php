@@ -10,6 +10,8 @@ use Prooph\EventSourcing\AggregateChanged;
 
 final class OrderWasCanceled extends AggregateChanged
 {
+    private OrderId $orderId;
+
     private Status $status;
 
     public function status(): Status
@@ -25,8 +27,19 @@ final class OrderWasCanceled extends AggregateChanged
             'status' => $status->toString(),
         ]);
 
+        $event->orderId = $orderId;
         $event->status = $status;
 
         return $event;
+    }
+
+    public function getOrderId(): string
+    {
+        return $this->orderId->toString();
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status->toString();
     }
 }

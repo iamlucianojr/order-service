@@ -11,7 +11,10 @@ use App\Order\Domain\Exception\OrderNotFoundException;
 use App\Order\Domain\Model\Order;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Infrastructure\Persistence\Repository\OrderRepositoryInterface;
+use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderRedoHandler implements MessageHandlerInterface
 {
@@ -19,12 +22,20 @@ final class OrderRedoHandler implements MessageHandlerInterface
 
     private CheckIfThereAreStockUnitsInterface $stockChecker;
 
+    private MessageBusInterface $eventBus;
+
+    private LoggerInterface $logger;
+
     public function __construct(
         OrderRepositoryInterface $repository,
-        CheckIfThereAreStockUnitsInterface $stockChecker
+        CheckIfThereAreStockUnitsInterface $stockChecker,
+        MessageBusInterface $eventBus,
+        LoggerInterface $logger
     ) {
         $this->repository = $repository;
         $this->stockChecker = $stockChecker;
+        $this->eventBus = $eventBus;
+        $this->logger = $logger;
     }
 
     public function __invoke(OrderRedoCommandInterface $command): void
@@ -41,13 +52,21 @@ final class OrderRedoHandler implements MessageHandlerInterface
             throw new NonStockUnitsForOrderItemException('The order has items out of stock. Please chose another item');
         }
 
-        $order = Order::register(
-            OrderId::fromString($command->getOrderId()),
-            $originalOrder->establishment(),
-            $originalOrder->catalogFlow(),
-            $originalOrder->tableIdentifier(),
-            $originalOrder->items()
-        );
+        try {
+            $order = Order::register(
+                OrderId::fromString($command->getOrderId()),
+                $originalOrder->establishment(),
+                $originalOrder->catalogFlow(),
+                $originalOrder->tableIdentifier(),
+                $originalOrder->items()
+            );
+        } catch (Exception $exception) {
+            $this->logger->error(
+                sprintf('Could not redo order %s', $originalOrder->aggregateId())
+            );
+        }
+
+        $this->eventBus->dispatch(...$order->getDomainEvents());
 
         $this->repository->save($order);
     }

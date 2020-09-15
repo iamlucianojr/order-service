@@ -20,7 +20,7 @@ Use [docker](https://docs.docker.com/install) to install the container services.
 docker-compose up -d
 ```
 
-This command will install an instance of Postgres, Nginx, RabbitMQ and Metabase services.
+This command will install an instance of Postgres, Nginx, RabbitMQ, Graphql and Metabase services.
 
 
 ## Usage

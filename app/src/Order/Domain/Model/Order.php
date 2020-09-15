@@ -42,14 +42,16 @@ final class Order extends AggregateRoot implements EntityInterface
     ): Order {
         $self = new self();
 
-        $self->recordThat(OrderWasRequested::withData(
-            $orderId,
-            $establishment,
-            $catalogFlow,
-            $tableIdentifier,
-            $items,
-            Status::waiting()
-        ));
+        $self->recordThat(
+            OrderWasRequested::withData(
+                $orderId,
+                $establishment,
+                $catalogFlow,
+                $tableIdentifier,
+                $items,
+                Status::waiting()
+            )
+        );
 
         return $self;
     }
@@ -142,7 +144,6 @@ final class Order extends AggregateRoot implements EntityInterface
                 $this->tableIdentifier = $event->tableIdentifier();
                 $this->items = $event->items();
                 $this->status = $event->status();
-
                 break;
 
             case OrderWasCanceled::class:

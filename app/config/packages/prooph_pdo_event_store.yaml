@@ -12,7 +12,7 @@ services:
             - '@app.event_store.postgres.persistence_strategy'
 
     app.event_store.pdo_connection.postgres:
-        class: \PDO
+        class: PDO
         arguments:
             - '%env(POSTGRES_DNS)%'
             - '%env(POSTGRES_USER)%'

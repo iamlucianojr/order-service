@@ -9,19 +9,26 @@ use App\Order\Domain\Exception\CannotDeliverCanceledOrderException;
 use App\Order\Domain\Model\Order;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Infrastructure\Persistence\Repository\OrderRepositoryInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-final class OrderDeliverHandler implements MessageHandlerInterface, LoggerAwareInterface
+final class OrderDeliverHandler implements MessageHandlerInterface
 {
-    use LoggerAwareTrait;
-
     private OrderRepositoryInterface $repository;
 
-    public function __construct(OrderRepositoryInterface $repository)
-    {
+    private MessageBusInterface $eventBus;
+
+    private LoggerInterface $logger;
+
+    public function __construct(
+        OrderRepositoryInterface $repository,
+        MessageBusInterface $eventBus,
+        LoggerInterface $logger
+    ) {
         $this->repository = $repository;
+        $this->eventBus = $eventBus;
+        $this->logger = $logger;
     }
 
     public function __invoke(OrderDeliverCommandInterface $command): void
@@ -30,6 +37,8 @@ final class OrderDeliverHandler implements MessageHandlerInterface, LoggerAwareI
         assert($order instanceof Order);
         try {
             $order->deliver();
+
+            $this->eventBus->dispatch(...$order->getDomainEvents());
         } catch (CannotDeliverCanceledOrderException $exception) {
             $this->logger->warning(
                 sprintf('Order %s could not be delivered because it was cancel', $command->getOrderId()),
