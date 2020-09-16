@@ -98,7 +98,7 @@ final class ItemCollection implements ValueObjectInterface, Countable
 
     public function __toString(): string
     {
-        return (string) json_encode($this->toArray());
+        return (string) json_encode($this->toArray(), JSON_PRETTY_PRINT);
     }
 
     public function count(): int
