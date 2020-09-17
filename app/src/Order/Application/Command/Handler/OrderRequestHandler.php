@@ -48,6 +48,7 @@ final class OrderRequestHandler implements MessageHandlerInterface
         if (false === $stockUnits) {
             throw new NonStockUnitsForOrderItemException(sprintf('The order has items out of stock. Please chose another item'));
         }
+
         $order = Order::register(
             OrderId::fromString($command->getOrderRequestId()),
             Establishment::fromArray($command->getEstablishment()),

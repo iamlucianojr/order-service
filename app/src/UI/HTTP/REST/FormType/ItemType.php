@@ -24,8 +24,19 @@ class ItemType extends AbstractType
                     new Uuid(),
                 ],
             ])
+            ->add('name', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ])
             ->add('type', TextType::class)
             ->add('quantity', IntegerType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new GreaterThan(0),
+                ],
+            ])
+            ->add('version', IntegerType::class, [
                 'constraints' => [
                     new NotBlank(),
                     new GreaterThan(0),
