@@ -32,13 +32,17 @@ final class ItemCollectionTest extends TestCase
         $collection = ItemCollection::fromArray([
             [
                 'uuid' => Uuid::uuid4()->toString(),
+                'name' => 'Gatorade',
                 'type' => ProductType::DRINK,
                 'quantity' => 1,
+                'version' => 2,
             ],
             [
                 'uuid' => Uuid::uuid4()->toString(),
+                'name' => 'Nacho supreme',
                 'type' => ProductType::FOOD,
                 'quantity' => 2,
+                'version' => 5,
             ],
         ]);
         $this->assertCount(2, $collection);
@@ -108,8 +112,10 @@ final class ItemCollectionTest extends TestCase
     {
         return Item::fromArray([
             'uuid' => Uuid::uuid4()->toString(),
+            'name' => 'Vegan Chili beans',
             'type' => ProductType::FOOD,
             'quantity' => 2,
+            'version' => 1,
         ]);
     }
 }

@@ -72,8 +72,8 @@ final class Item implements ValueObjectInterface
     public function toArray(): array
     {
         return [
-            'name' => $this->name->toString(),
             'uuid' => $this->uuid->toString(),
+            'name' => $this->name->toString(),
             'type' => $this->type->toString(),
             'quantity' => $this->quantity,
             'version' => $this->version

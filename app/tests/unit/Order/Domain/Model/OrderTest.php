@@ -37,13 +37,17 @@ final class OrderTest extends TestCase
         $itemCollection = ItemCollection::fromArray([
             [
                 'uuid' => Uuid::uuid4(),
+                'name' => 'French fries',
                 'type' => ProductType::FOOD,
                 'quantity' => rand(1, 5),
+                'version' => rand(1, 4)
             ],
             [
                 'uuid' => Uuid::uuid4(),
+                'name' => 'Mojito',
                 'type' => ProductType::DRINK,
                 'quantity' => rand(5, 10),
+                'version' => rand(1, 4)
             ],
         ]);
 
@@ -130,13 +134,17 @@ final class OrderTest extends TestCase
             ItemCollection::fromItems(
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
+                    'name' => 'Chicken wings',
                     'type' => ProductType::FOOD,
                     'quantity' => rand(1, 5),
+                    'version' => rand(2, 3),
                 ]),
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
+                    'name' => 'Lemon Caipirinha',
                     'type' => ProductType::DRINK,
                     'quantity' => rand(5, 10),
+                    'version' => rand(1, 3),
                 ])
             )
         );
@@ -157,13 +165,17 @@ final class OrderTest extends TestCase
             ItemCollection::fromItems(
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
+                    'name' => 'Tasty burger',
                     'type' => ProductType::FOOD,
                     'quantity' => rand(1, 5),
+                    'version' => rand(1, 3),
                 ]),
                 Item::fromArray([
                     'uuid' => Uuid::uuid4(),
+                    'name' => 'Classic Margarita',
                     'type' => ProductType::DRINK,
                     'quantity' => rand(5, 10),
+                    'version' => rand(1, 3),
                 ])
             )
         );
