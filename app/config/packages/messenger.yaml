@@ -25,6 +25,6 @@ framework:
 
         routing:
             'App\Order\Application\Command\OrderRequestCommand': write_commands
-            'App\Order\Domain\Event\OrderWasRequested': domain_events
+            'App\Order\Domain\Event\OrderWasPlaced': domain_events
             'App\Order\Domain\Event\OrderWasDelivered': domain_events
             'App\Order\Domain\Event\OrderWasCanceled': domain_events
