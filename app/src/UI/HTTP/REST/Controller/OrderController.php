@@ -119,4 +119,9 @@ final class OrderController extends AbstractController
 
         return $this->json($form, Response::HTTP_BAD_REQUEST);
     }
+
+    public function status(): Response
+    {
+        return $this->json(['foo' => 'bar']);
+    }
 }

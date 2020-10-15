@@ -17,3 +17,8 @@ order::redo:
     path: /order-redo
     methods: [POST]
     controller: App\UI\HTTP\REST\Controller\OrderController::redo
+
+order::status:
+    path: /status
+    methods: [ GET ]
+    controller: App\UI\HTTP\REST\Controller\OrderController::status
