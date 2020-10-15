@@ -4,7 +4,7 @@
     "name": "luciano-jr/order-service",
     "description": "Order service",
     "require": {
-        "php": "^7.4.0",
+        "php": "7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "beberlei/assert": "^3.2",
