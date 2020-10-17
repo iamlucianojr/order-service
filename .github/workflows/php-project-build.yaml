@@ -13,5 +13,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+      - name: Login docker hub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - uses: actions/checkout@master
       - name: Install composer dependecies
         run: composer install
