@@ -7,7 +7,8 @@ jobs:
     container: lucianojr/order-service-php-dev
     strategy:
       fail-fast: true
+
     steps:
-      - name: install dependecies
       - uses: actions/checkout@master
+        name: Install composer dependecies
         run: composer install
