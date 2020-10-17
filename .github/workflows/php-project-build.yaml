@@ -3,12 +3,15 @@ name: PHP project build
 on: [push]
 
 jobs:
+
   build:
+
     container: lucianojr/order-service-php-dev
+
     strategy:
       fail-fast: true
 
     steps:
       - uses: actions/checkout@master
-        name: Install composer dependecies
+      - name: Install composer dependecies
         run: composer install
