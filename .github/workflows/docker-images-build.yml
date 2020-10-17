@@ -1,4 +1,4 @@
-name: Build
+name: Docker images build
 
 on: [push]
 
@@ -25,19 +25,3 @@ jobs:
 
     - name: Push the base docker image to registry
       run: docker push lucianojr/order-service-php:$(git rev-parse HEAD)
-
-    - name: Validate composer.json and composer.lock
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 7.4
-        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo
-      run: composer validate -d app
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest -d app
-
-    - name: Run phpstan
-      run: composer run-script phpstan -d app
-
-    - name: Run phpunit
-      run: composer run-script phpunit -d app
