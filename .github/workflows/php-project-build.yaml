@@ -1,0 +1,12 @@
+name: PHP project build
+
+on: [push]
+
+jobs:
+  build:
+    container: lucianojr/order-service-php-dev
+    strategy:
+      fail-fast: true
+    steps:
+      name: install dependecies
+      run: composer install
