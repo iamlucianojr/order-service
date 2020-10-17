@@ -9,4 +9,5 @@ jobs:
       fail-fast: true
     steps:
       - name: install dependecies
+      - uses: actions/checkout@master
         run: composer install
