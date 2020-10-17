@@ -21,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 
 final class OrderTest extends TestCase
 {
-    public function testOrderRegisterCreatesWaitingOrder(): void
+    public function testOrderPlaceCreatesWaitingOrder(): void
     {
         $establishment = Establishment::fromArray([
             'uuid' => Uuid::uuid4()->toString(),
@@ -51,7 +51,7 @@ final class OrderTest extends TestCase
             ],
         ]);
 
-        $order = Order::register(
+        $order = Order::place(
             OrderId::fromString(Uuid::uuid4()->toString()),
             $establishment,
             $catalogFlow,
@@ -123,7 +123,7 @@ final class OrderTest extends TestCase
     public function testAggregateId(): void
     {
         $orderUuid = Uuid::uuid4()->toString();
-        $order = Order::register(
+        $order = Order::place(
             OrderId::fromString($orderUuid),
             Establishment::fromArray(['uuid' => Uuid::uuid4()->toString()]),
             CatalogFlow::fromArray([
@@ -154,7 +154,7 @@ final class OrderTest extends TestCase
 
     private function getAnOrder(): Order
     {
-        return Order::register(
+        return Order::place(
             OrderId::fromString(Uuid::uuid4()->toString()),
             Establishment::fromArray(['uuid' => Uuid::uuid4()->toString()]),
             CatalogFlow::fromArray([

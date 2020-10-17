@@ -12,9 +12,7 @@ jobs:
 
     steps:
       - name: PHPUnit (php-actions)
-        # You may pin to the exact commit or the version.
-        # uses: php-actions/phpunit@491267c4c6b330c1168408d6a15e4fa5dc0ed940
         uses: php-actions/phpunit@v9
+        working-directory: ./app
         with:
-          # Configuration file location
           configuration: phpunit.xml.dist
