@@ -7,9 +7,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: true
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Build the PHP base docker image
       run: docker build . --file docker/php/Dockerfile.baseimage --tag lucianojr/order-service-php:$(git rev-parse HEAD)
 
