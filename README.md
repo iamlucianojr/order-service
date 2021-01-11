@@ -7,8 +7,6 @@ The idea behind the business domain is an application to order drinks and foods 
  
 Order service is a microservice built using DDD, CQRS and Event Sourcing architecture, the goal is to provide an api to create, cancel, redo and deliver an order.
 
-![Build](https://github.com/luciano-jr/order-service/workflows/Build/badge.svg)
-
 [PHPUnit code coverage report](https://order-service-test-coverage.lucianojr.now.sh/Order/Domain/)
 
 
