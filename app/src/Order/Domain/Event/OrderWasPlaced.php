@@ -12,7 +12,7 @@ use App\Order\Domain\ValueObject\Status;
 use App\Order\Domain\ValueObject\TableIdentifier;
 use Prooph\EventSourcing\AggregateChanged;
 
-final class OrderWasRequested extends AggregateChanged
+final class OrderWasPlaced extends AggregateChanged
 {
     private OrderId $orderId;
 
@@ -67,7 +67,7 @@ final class OrderWasRequested extends AggregateChanged
         TableIdentifier $tableIdentifier,
         ItemCollection $items,
         Status $status
-    ): OrderWasRequested {
+    ): OrderWasPlaced {
         $event = new self(
             $orderId->toString(),
             [

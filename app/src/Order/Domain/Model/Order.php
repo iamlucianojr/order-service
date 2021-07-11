@@ -6,7 +6,7 @@ namespace App\Order\Domain\Model;
 
 use App\Order\Domain\Event\OrderWasCanceled;
 use App\Order\Domain\Event\OrderWasDelivered;
-use App\Order\Domain\Event\OrderWasRequested;
+use App\Order\Domain\Event\OrderWasPlaced;
 use App\Order\Domain\Exception\CannotCancelDeliveredOrderException;
 use App\Order\Domain\Exception\CannotDeliverCanceledOrderException;
 use App\Order\Domain\ValueObject\CatalogFlow;
@@ -33,7 +33,7 @@ final class Order extends AggregateRoot implements EntityInterface
 
     private Status $status;
 
-    public static function register(
+    public static function place(
         OrderId $orderId,
         Establishment $establishment,
         CatalogFlow $catalogFlow,
@@ -43,7 +43,7 @@ final class Order extends AggregateRoot implements EntityInterface
         $self = new self();
 
         $self->recordThat(
-            OrderWasRequested::withData(
+            OrderWasPlaced::withData(
                 $orderId,
                 $establishment,
                 $catalogFlow,
@@ -136,8 +136,8 @@ final class Order extends AggregateRoot implements EntityInterface
     protected function apply(AggregateChanged $event): void
     {
         switch (get_class($event)) {
-            case OrderWasRequested::class:
-                assert($event instanceof OrderWasRequested);
+            case OrderWasPlaced::class:
+                assert($event instanceof OrderWasPlaced);
                 $this->orderId = $event->orderId();
                 $this->establishment = $event->establishment();
                 $this->catalogFlow = $event->catalogFlow();

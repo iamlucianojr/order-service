@@ -6,7 +6,7 @@ namespace App\Order\Infrastructure\Persistence\ORM\Projections;
 
 use App\Order\Domain\Event\OrderWasCanceled;
 use App\Order\Domain\Event\OrderWasDelivered;
-use App\Order\Domain\Event\OrderWasRequested;
+use App\Order\Domain\Event\OrderWasPlaced;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
@@ -17,7 +17,7 @@ final class OrderProjection implements ReadModelProjection
         $readModel = $projector->readModel();
         $projector->fromStreams('event_stream')
             ->when([
-                OrderWasRequested::class => function ($state, OrderWasRequested $event) use ($readModel) {
+                OrderWasPlaced::class => function ($state, OrderWasPlaced $event) use ($readModel) {
                     $readModel->stack('insert', [
                         'order_id' => $event->aggregateId(),
                         'establishment_id' => $event->establishment()->establishmentId()->toString(),

@@ -1,5 +1,5 @@
 ###> symfony/framework-bundle ###
-/.env.local
+/.env.staging
 /.env.local.php
 /.env.*.local
 /public/bundles/
